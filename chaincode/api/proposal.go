@@ -50,7 +50,7 @@ func CreateProposal(stub shim.ChaincodeStubInterface, args []string) pb.Response
 
 	err = stub.PutState(proposalID, []byte(proposalString))
 	if err != nil {
-		return shim.Error(err.Error())
+		return shim.Error("生成方案失败: " + err.Error())
 	}
 	return shim.Success(nil)
 }

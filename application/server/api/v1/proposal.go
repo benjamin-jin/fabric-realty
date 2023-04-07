@@ -1560,6 +1560,7 @@ func CreateProposal(c *gin.Context) {
 		ObjectType:       "proposal",
 		AdminUserID:      "100001000001",
 		AdminUserName:    "系统管理员01",
+		SubProposalList:  []model.SubProposal{},
 		AlgSubList:       algSubList,
 		AlgDuration:      39683.0,
 		AlgCost:          433710,
@@ -1581,8 +1582,9 @@ func CreateProposal(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, "方案创建失败", err.Error())
 		return
 	}
-	var data map[string]interface{}
-	data["proposal_id"] = proposalID
+	data := map[string]string{
+		"proposal_id": proposalID,
+	}
 	appG.Response(http.StatusOK, "成功", data)
 }
 

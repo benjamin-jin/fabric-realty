@@ -44,7 +44,7 @@ func GetStorageList(c *gin.Context) {
 		appG.Response(http.StatusOK, "查询仓储成功", data)
 	} else {
 		bodyBytes = append(bodyBytes, []byte(body.GoodCode))
-		resp, err = bc.ChannelQuery("getStoragesByLocation", bodyBytes)
+		resp, err = bc.ChannelQuery("getStoragesByGoodCode", bodyBytes)
 		if err != nil {
 			appG.Response(http.StatusInternalServerError, "按物资查询仓储失败", err.Error())
 			return
