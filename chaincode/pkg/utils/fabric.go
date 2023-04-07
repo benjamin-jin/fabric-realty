@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	pb "github.com/hyperledger/fabric/protos/peer"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -107,4 +109,91 @@ func GetStateByPartialCompositeKeys2(stub shim.ChaincodeStubInterface, objectTyp
 		results = append(results, val.GetValue())
 	}
 	return results, nil
+}
+
+func GetQueryResultForQueryString(stub shim.ChaincodeStubInterface, queryString string) ([]byte, error) {
+
+	//fmt.Printf("- getQueryResultForQueryString queryString:\n%s\n", queryString)
+
+	resultsIterator, err := stub.GetQueryResult(queryString)
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	buffer, err := constructQueryResponseFromIterator(resultsIterator)
+	if err != nil {
+		return nil, err
+	}
+
+	//fmt.Printf("- getQueryResultForQueryString queryResult:\n%s\n", buffer.String())
+
+	return buffer.Bytes(), nil
+}
+
+func constructQueryResponseFromIterator(resultsIterator shim.StateQueryIteratorInterface) (*bytes.Buffer, error) {
+	// buffer is a JSON array containing QueryResults
+	var buffer bytes.Buffer
+	buffer.WriteString("[")
+
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		if err != nil {
+			return nil, err
+		}
+		// Add a comma before array members, suppress it for the first array member
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"Key\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(queryResponse.Key)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Record\":")
+		// Record is a JSON object, so we write as-is
+		buffer.WriteString(string(queryResponse.Value))
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
+
+	return &buffer, nil
+}
+
+func GetQueryResultForQueryStringWithPagination(stub shim.ChaincodeStubInterface, queryString string, pageSize int32, bookmark string) ([]byte, error) {
+
+	//fmt.Printf("- getQueryResultForQueryString queryString:\n%s\n", queryString)
+
+	resultsIterator, responseMetadata, err := stub.GetQueryResultWithPagination(queryString, pageSize, bookmark)
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	buffer, err := constructQueryResponseFromIterator(resultsIterator)
+	if err != nil {
+		return nil, err
+	}
+
+	bufferWithPaginationInfo := addPaginationMetadataToQueryResults(buffer, responseMetadata)
+
+	fmt.Printf("- getQueryResultForQueryString queryResult:\n%s\n", bufferWithPaginationInfo.String())
+
+	return buffer.Bytes(), nil
+}
+
+func addPaginationMetadataToQueryResults(buffer *bytes.Buffer, responseMetadata *pb.QueryResponseMetadata) *bytes.Buffer {
+
+	buffer.WriteString("[{\"ResponseMetadata\":{\"RecordsCount\":")
+	buffer.WriteString("\"")
+	buffer.WriteString(fmt.Sprintf("%v", responseMetadata.FetchedRecordsCount))
+	buffer.WriteString("\"")
+	buffer.WriteString(", \"Bookmark\":")
+	buffer.WriteString("\"")
+	buffer.WriteString(responseMetadata.Bookmark)
+	buffer.WriteString("\"}}]")
+
+	return buffer
 }
