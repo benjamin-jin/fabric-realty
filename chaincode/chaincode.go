@@ -253,9 +253,9 @@ func (c *MyChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return api.GetStoragesByGoodCode(stub, args)
 	case "getDemandList":
 		return api.GetDemandList(stub, args)
-	case "getDemandByLocation":
+	case "getDemandsByLocation":
 		return api.GetDemandsByLocation(stub, args)
-	case "getTransportByLocation":
+	case "getTransportsByLocation":
 		return api.GetTransportsByLocation(stub, args)
 	case "getProposal":
 		return api.GetProposal(stub, args)
