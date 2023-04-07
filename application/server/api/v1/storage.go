@@ -37,6 +37,12 @@ func GetStorageList(c *gin.Context) {
 			appG.Response(http.StatusInternalServerError, "查询所有仓储失败", err.Error())
 			return
 		}
+		var data map[string]interface{}
+		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+			appG.Response(http.StatusInternalServerError, "查询仓储失败", err.Error())
+			return
+		}
+		appG.Response(http.StatusOK, "查询仓储成功", data)
 	} else {
 		bodyBytes = append(bodyBytes, []byte(body.GoodCode))
 		resp, err = bc.ChannelQuery("getStoragesByLocation", bodyBytes)
@@ -44,12 +50,13 @@ func GetStorageList(c *gin.Context) {
 			appG.Response(http.StatusInternalServerError, "按物资查询仓储失败", err.Error())
 			return
 		}
+		var data []map[string]interface{}
+		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+			appG.Response(http.StatusInternalServerError, "查询仓储失败", err.Error())
+			return
+		}
+		appG.Response(http.StatusOK, "查询仓储成功", data)
 	}
 	// todo: 反序列化json 可能存在问题
-	var data []map[string]interface{}
-	if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
-		appG.Response(http.StatusInternalServerError, "查询仓储失败", err.Error())
-		return
-	}
-	appG.Response(http.StatusOK, "查询仓储成功", data)
+
 }

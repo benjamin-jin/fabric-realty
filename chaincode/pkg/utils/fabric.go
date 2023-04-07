@@ -146,15 +146,15 @@ func constructQueryResponseFromIterator(resultsIterator shim.StateQueryIteratorI
 		if bArrayMemberAlreadyWritten == true {
 			buffer.WriteString(",")
 		}
-		buffer.WriteString("{\"Key\":")
-		buffer.WriteString("\"")
+		//buffer.WriteString("{\"Key\":")
+		//buffer.WriteString("\"")
 		buffer.WriteString(queryResponse.Key)
-		buffer.WriteString("\"")
+		//buffer.WriteString("\"")
 
-		buffer.WriteString(", \"Record\":")
+		//buffer.WriteString(", \"Record\":")
 		// Record is a JSON object, so we write as-is
 		buffer.WriteString(string(queryResponse.Value))
-		buffer.WriteString("}")
+		//buffer.WriteString("}")
 		bArrayMemberAlreadyWritten = true
 	}
 	buffer.WriteString("]")
@@ -181,19 +181,22 @@ func GetQueryResultForQueryStringWithPagination(stub shim.ChaincodeStubInterface
 
 	fmt.Printf("- getQueryResultForQueryString queryResult:\n%s\n", bufferWithPaginationInfo.String())
 
-	return buffer.Bytes(), nil
+	return bufferWithPaginationInfo.Bytes(), nil
 }
 
 func addPaginationMetadataToQueryResults(buffer *bytes.Buffer, responseMetadata *pb.QueryResponseMetadata) *bytes.Buffer {
+	var newBuffer bytes.Buffer
+	newBuffer.WriteString("{\"list\":")
+	newBuffer.WriteString(buffer.String())
+	newBuffer.WriteString(",\"ResponseMetadata\":{\"RecordsCount\":")
+	//buffer.WriteString("[{\"ResponseMetadata\":{\"RecordsCount\":")
+	newBuffer.WriteString("\"")
+	newBuffer.WriteString(fmt.Sprintf("%v", responseMetadata.FetchedRecordsCount))
+	newBuffer.WriteString("\"")
+	newBuffer.WriteString(", \"Bookmark\":")
+	newBuffer.WriteString("\"")
+	newBuffer.WriteString(responseMetadata.Bookmark)
+	newBuffer.WriteString("\"}")
 
-	buffer.WriteString("[{\"ResponseMetadata\":{\"RecordsCount\":")
-	buffer.WriteString("\"")
-	buffer.WriteString(fmt.Sprintf("%v", responseMetadata.FetchedRecordsCount))
-	buffer.WriteString("\"")
-	buffer.WriteString(", \"Bookmark\":")
-	buffer.WriteString("\"")
-	buffer.WriteString(responseMetadata.Bookmark)
-	buffer.WriteString("\"}}]")
-
-	return buffer
+	return &newBuffer
 }
