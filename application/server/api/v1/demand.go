@@ -39,10 +39,10 @@ func GetDemandList(c *gin.Context) {
 		}
 		var data map[string]interface{}
 		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
-			appG.Response(http.StatusInternalServerError, "查询需求失败", err.Error())
+			appG.Response(http.StatusInternalServerError, "查询所有需求失败", err.Error())
 			return
 		}
-		appG.Response(http.StatusOK, "查询需求成功", data)
+		appG.Response(http.StatusOK, "查询所有需求成功", data)
 	} else {
 		bodyBytes = append(bodyBytes, []byte(body.LocationCode))
 		resp, err = bc.ChannelQuery("getDemandsByLocation", bodyBytes)
@@ -52,9 +52,9 @@ func GetDemandList(c *gin.Context) {
 		}
 		var data []map[string]interface{}
 		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
-			appG.Response(http.StatusInternalServerError, "查询需求失败", err.Error())
+			appG.Response(http.StatusInternalServerError, "按地点查询需求失败", err.Error())
 			return
 		}
-		appG.Response(http.StatusOK, "查询需求成功", data)
+		appG.Response(http.StatusOK, "按地点查询需求成功", data)
 	}
 }

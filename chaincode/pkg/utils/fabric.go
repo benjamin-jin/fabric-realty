@@ -148,7 +148,7 @@ func constructQueryResponseFromIterator(resultsIterator shim.StateQueryIteratorI
 		}
 		//buffer.WriteString("{\"Key\":")
 		//buffer.WriteString("\"")
-		buffer.WriteString(queryResponse.Key)
+		//buffer.WriteString(queryResponse.Key)
 		//buffer.WriteString("\"")
 
 		//buffer.WriteString(", \"Record\":")
