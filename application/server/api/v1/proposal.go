@@ -4,7 +4,6 @@ import (
 	bc "application/blockchain"
 	"application/model"
 	"application/pkg/app"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -15,9 +14,9 @@ import (
 )
 
 type ProposalRequestBody struct {
-	ProposalID        string `json:"proposal_id"`
-	SubProposalString string `json:"sub_proposal"`
-	UserID            string `json:"user_id"`
+	ProposalID        string `json:"proposal_id" form:"proposal_id"`
+	SubProposalString string `json:"sub_proposal" form:"sub_proposal"`
+	UserID            string `json:"user_id" form:"user_id"`
 }
 
 func GetProposal(c *gin.Context) {
@@ -41,7 +40,7 @@ func GetProposal(c *gin.Context) {
 
 	// todo: 反序列化json 可能存在问题
 	var data map[string]interface{}
-	if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+	if err = json.Unmarshal(resp.Payload, &data); err != nil {
 		appG.Response(http.StatusInternalServerError, "查询方案失败", err.Error())
 		return
 	}
@@ -69,7 +68,7 @@ func GetProposalList(c *gin.Context) {
 
 	// todo: 反序列化json 可能存在问题
 	var data []map[string]interface{}
-	if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+	if err = json.Unmarshal(resp.Payload, &data); err != nil {
 		appG.Response(http.StatusInternalServerError, "查询方案失败", err.Error())
 		return
 	}
@@ -1612,7 +1611,7 @@ func PostProposal(c *gin.Context) {
 		return
 	}
 	proposal := model.Proposal{}
-	if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &proposal); err != nil {
+	if err = json.Unmarshal(resp.Payload, &proposal); err != nil {
 		appG.Response(http.StatusInternalServerError, "方案反序列化失败", err.Error())
 		return
 	}

@@ -3,7 +3,6 @@ package v1
 import (
 	bc "application/blockchain"
 	"application/pkg/app"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -13,9 +12,9 @@ import (
 )
 
 type StorageRequestBody struct {
-	PageSize int    `json:"pageSize"`
-	Bookmark string `json:"bookmark"`
-	GoodCode string `json:"good_code"`
+	PageSize int    `json:"pageSize" form:"pageSize"`
+	Bookmark string `json:"bookmark" form:"bookmark"`
+	GoodCode string `json:"good_code" form:"good_code"`
 }
 
 func GetStorageList(c *gin.Context) {
@@ -38,7 +37,7 @@ func GetStorageList(c *gin.Context) {
 			return
 		}
 		var data map[string]interface{}
-		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+		if err = json.Unmarshal(resp.Payload, &data); err != nil {
 			appG.Response(http.StatusInternalServerError, "查询仓储失败", err.Error())
 			return
 		}
@@ -51,8 +50,8 @@ func GetStorageList(c *gin.Context) {
 			return
 		}
 		var data []map[string]interface{}
-		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
-			appG.Response(http.StatusInternalServerError, "查询仓储失败", err.Error())
+		if err = json.Unmarshal(resp.Payload, &data); err != nil {
+			appG.Response(http.StatusInternalServerError, "查询仓储反序列化失败", err.Error())
 			return
 		}
 		appG.Response(http.StatusOK, "查询仓储成功", data)

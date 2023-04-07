@@ -4,8 +4,8 @@ package model
 
 //docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"getDemandList\", \"10\", \"\"]}'"
 
-//docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"getDemandByLocation\", \"330105\"]}'"
-//
+//docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"getDemandsByLocation\", \"330105\"]}'"
+
 //docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"getStorageList\", \"5\", \"\"]}'"
 //
 //docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"getStoragesByGoodCode\", \"6922266470912\"]}'"

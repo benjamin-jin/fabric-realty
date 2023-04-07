@@ -3,7 +3,6 @@ package v1
 import (
 	bc "application/blockchain"
 	"application/pkg/app"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -12,8 +11,8 @@ import (
 )
 
 type TransportRequestBody struct {
-	StartLocationCode string `json:"start_location_code"`
-	EndLocationCode   string `json:"end_location_code"`
+	StartLocationCode string `json:"start_location_code" form:"start_location_code"`
+	EndLocationCode   string `json:"end_location_code" form:"end_location_code"`
 }
 
 func GetTransportList(c *gin.Context) {
@@ -37,7 +36,7 @@ func GetTransportList(c *gin.Context) {
 
 	// todo: 反序列化json 可能存在问题
 	var data []map[string]interface{}
-	if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+	if err = json.Unmarshal(resp.Payload, &data); err != nil {
 		appG.Response(http.StatusInternalServerError, "查询运力失败", err.Error())
 		return
 	}

@@ -3,7 +3,6 @@ package v1
 import (
 	bc "application/blockchain"
 	"application/pkg/app"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -51,8 +50,8 @@ func GetDemandList(c *gin.Context) {
 			return
 		}
 		var data []map[string]interface{}
-		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
-			appG.Response(http.StatusInternalServerError, "按地点查询需求失败", err.Error())
+		if err = json.Unmarshal(resp.Payload, &data); err != nil {
+			appG.Response(http.StatusInternalServerError, "按地点查询需求反序列化失败", err.Error())
 			return
 		}
 		appG.Response(http.StatusOK, "按地点查询需求成功", data)
