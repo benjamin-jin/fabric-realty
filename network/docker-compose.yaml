@@ -53,7 +53,7 @@ services:
       - CORE_PEER_ID=peer0.taobao.com
       - CORE_PEER_LOCALMSPID=TaobaoMSP
       - CORE_PEER_ADDRESS=peer0.taobao.com:7051
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0.taobao:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     ports:
@@ -65,6 +65,7 @@ services:
     depends_on:
       - orderer.qq.com
       - couchdb0.taobao
+
   couchdb1.taobao:
     container_name: couchdb1.taobao
     image: hyperledger/fabric-couchdb
@@ -87,6 +88,9 @@ services:
       - CORE_PEER_ID=peer1.taobao.com
       - CORE_PEER_LOCALMSPID=TaobaoMSP
       - CORE_PEER_ADDRESS=peer1.taobao.com:7051
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1.taobao:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     ports:
       - "17051:7051"
       - "17053:7053"
@@ -95,6 +99,8 @@ services:
       - peer1.taobao.com:/var/hyperledger/production
     depends_on:
       - orderer.qq.com
+      - couchdb1.taobao
+
   couchdb0.jd:
     container_name: couchdb0.jd
     image: hyperledger/fabric-couchdb
@@ -105,6 +111,7 @@ services:
       - "25984:5984"
     networks:
       - fabric_network
+
   #  JD 组织 peer0 节点
   peer0.jd.com:
     extends:
@@ -115,6 +122,9 @@ services:
       - CORE_PEER_ID=peer0.jd.com
       - CORE_PEER_LOCALMSPID=JDMSP
       - CORE_PEER_ADDRESS=peer0.jd.com:7051
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0.jd:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     ports:
       - "27051:7051"
       - "27053:7053"
@@ -133,6 +143,7 @@ services:
       - "35984:5984"
     networks:
       - fabric_network
+
   #  JD 组织 peer1 节点
   peer1.jd.com:
     extends:
@@ -143,6 +154,9 @@ services:
       - CORE_PEER_ID=peer1.jd.com
       - CORE_PEER_LOCALMSPID=JDMSP
       - CORE_PEER_ADDRESS=peer1.jd.com:7051
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1.jd:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     ports:
       - "37051:7051"
       - "37053:7053"

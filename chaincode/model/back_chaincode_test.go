@@ -116,7 +116,7 @@ func Test_CreateRealEstate(t *testing.T) {
 	})
 }
 
-//手动创建一些房地产
+// 手动创建一些房地产
 func checkCreateRealEstate(stub *shim.MockStub, t *testing.T) []RealEstate {
 	var realEstateList []RealEstate
 	var realEstate RealEstate
