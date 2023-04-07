@@ -263,9 +263,9 @@ func (c *MyChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return api.GetProposalsByUserID(stub, args)
 	case "createProposal":
 		return api.CreateProposal(stub, args)
-	case "postProposals":
+	case "postProposal":
 		return api.PostProposal(stub, args)
-	case "deleteProposals":
+	case "deleteProposal":
 		return api.DeleteProposal(stub, args)
 	case "hello":
 		return api.Hello(stub, args)

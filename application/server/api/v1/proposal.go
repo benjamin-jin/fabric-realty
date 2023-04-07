@@ -1644,7 +1644,7 @@ func DeleteProposal(c *gin.Context) {
 	var bodyBytes [][]byte
 
 	bodyBytes = append(bodyBytes, []byte(body.ProposalID))
-	_, err = bc.ChannelExecute("deleteProposals", bodyBytes)
+	_, err = bc.ChannelExecute("deleteProposal", bodyBytes)
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, "删除方案失败", err.Error())
 		return
