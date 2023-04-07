@@ -302,7 +302,7 @@ func main() {
 		panic(err)
 	}
 	time.Local = timeLocal
-	err = shim.Start(new(BlockChainRealEstate))
+	err = shim.Start(new(MyChaincode))
 	if err != nil {
 		fmt.Printf("Error starting Simple chaincode: %s", err)
 	}
