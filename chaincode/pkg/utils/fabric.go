@@ -196,7 +196,7 @@ func addPaginationMetadataToQueryResults(buffer *bytes.Buffer, responseMetadata 
 	newBuffer.WriteString(", \"Bookmark\":")
 	newBuffer.WriteString("\"")
 	newBuffer.WriteString(responseMetadata.Bookmark)
-	newBuffer.WriteString("\"}")
+	newBuffer.WriteString("\"}}")
 
 	return &newBuffer
 }
