@@ -1598,7 +1598,7 @@ func PostProposal(c *gin.Context) {
 		return
 	}
 	var subProposalList []model.SubProposal
-	err = json.Unmarshal([]byte(body.SubProposalString), subProposalList)
+	err = json.Unmarshal([]byte(body.SubProposalString), &subProposalList)
 	if err != nil {
 		appG.Response(http.StatusBadRequest, "查询方案失败", fmt.Sprintf("子方案解析错误%s", err.Error()))
 		return
@@ -1638,15 +1638,15 @@ func DeleteProposal(c *gin.Context) {
 	//解析Body参数
 	err := c.ShouldBind(body)
 	if err != nil {
-		appG.Response(http.StatusBadRequest, "查询方案失败", fmt.Sprintf("参数出错%s", err.Error()))
+		appG.Response(http.StatusBadRequest, "删除方案失败", fmt.Sprintf("参数出错%s", err.Error()))
 		return
 	}
 	var bodyBytes [][]byte
 
 	bodyBytes = append(bodyBytes, []byte(body.ProposalID))
-	_, err = bc.ChannelExecute("deleteProposal", bodyBytes)
+	_, err = bc.ChannelExecute("deleteProposals", bodyBytes)
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, "查询方案失败", err.Error())
+		appG.Response(http.StatusInternalServerError, "删除方案失败", err.Error())
 		return
 	}
 	appG.Response(http.StatusOK, "成功", nil)
