@@ -13,9 +13,9 @@ import (
 )
 
 type DemandRequestBody struct {
-	PageSize     int    `json:"pageSize"`
-	Bookmark     string `json:"bookmark"`
-	LocationCode string `json:"location_code"`
+	PageSize     int    `form:"pageSize" json:"pageSize"`
+	Bookmark     string `form:"bookmark" json:"bookmark"`
+	LocationCode string `form:"location_code" json:"location_code"`
 }
 
 func GetDemandList(c *gin.Context) {
@@ -27,7 +27,6 @@ func GetDemandList(c *gin.Context) {
 		appG.Response(http.StatusBadRequest, "查询需求失败", fmt.Sprintf("参数出错%s", err.Error()))
 		return
 	}
-	fmt.Println(body)
 	var bodyBytes [][]byte
 	var resp channel.Response
 	if body.LocationCode == "" {
@@ -43,7 +42,7 @@ func GetDemandList(c *gin.Context) {
 			appG.Response(http.StatusInternalServerError, "查询所有需求失败", err.Error())
 			return
 		}
-		appG.Response(http.StatusOK, "查询所有需求成功", resp.Payload)
+		appG.Response(http.StatusOK, "查询所有需求成功", data)
 	} else {
 		bodyBytes = append(bodyBytes, []byte(body.LocationCode))
 		resp, err = bc.ChannelQuery("getDemandsByLocation", bodyBytes)
