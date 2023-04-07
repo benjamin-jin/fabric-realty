@@ -1,8 +1,7 @@
-package main
+package model
 
 import (
 	"bytes"
-	"chaincode/model"
 	"encoding/json"
 	"fmt"
 	"testing"
@@ -118,9 +117,9 @@ func Test_CreateRealEstate(t *testing.T) {
 }
 
 //手动创建一些房地产
-func checkCreateRealEstate(stub *shim.MockStub, t *testing.T) []model.RealEstate {
-	var realEstateList []model.RealEstate
-	var realEstate model.RealEstate
+func checkCreateRealEstate(stub *shim.MockStub, t *testing.T) []RealEstate {
+	var realEstateList []RealEstate
+	var realEstate RealEstate
 	//成功
 	resp1 := checkInvoke(t, stub, [][]byte{
 		[]byte("createRealEstate"),
