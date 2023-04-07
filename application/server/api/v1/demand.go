@@ -27,6 +27,7 @@ func GetDemandList(c *gin.Context) {
 		appG.Response(http.StatusBadRequest, "查询需求失败", fmt.Sprintf("参数出错%s", err.Error()))
 		return
 	}
+	fmt.Println(body)
 	var bodyBytes [][]byte
 	var resp channel.Response
 	if body.LocationCode == "" {
@@ -38,11 +39,11 @@ func GetDemandList(c *gin.Context) {
 			return
 		}
 		var data map[string]interface{}
-		if err = json.Unmarshal(bytes.NewBuffer(resp.Payload).Bytes(), &data); err != nil {
+		if err = json.Unmarshal(resp.Payload, &data); err != nil {
 			appG.Response(http.StatusInternalServerError, "查询所有需求失败", err.Error())
 			return
 		}
-		appG.Response(http.StatusOK, "查询所有需求成功", data)
+		appG.Response(http.StatusOK, "查询所有需求成功", resp.Payload)
 	} else {
 		bodyBytes = append(bodyBytes, []byte(body.LocationCode))
 		resp, err = bc.ChannelQuery("getDemandsByLocation", bodyBytes)
