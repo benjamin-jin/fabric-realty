@@ -60,7 +60,7 @@ type Proposal struct {
 	AlgDuration       int           `json:"alg_duration"`
 	AlgCost           int           `json:"alg_cost"`
 	IsProposalConfirm bool          `json:"is_proposal_confirm"`
-	ProposalDuration  int           `json:"proposal_duration"`
+	ProposalDuration  float64       `json:"proposal_duration"`
 	ProposalCost      int           `json:"proposal_cost"`
 	CreateTime        string        `json:"create_time"`
 }
@@ -85,7 +85,7 @@ type SubProposal struct {
 	TransportCount       int          `json:"transport_count"`
 	TransportTonnage     float64      `json:"transport_tonnage"`
 	TransportCapacity    int          `json:"transport_capacity"`
-	SubProposalDuration  int          `json:"sub_proposal_duration"`
+	SubProposalDuration  float64      `json:"sub_proposal_duration"`
 	SubProposalCost      int          `json:"sub_proposal_cost"`
 	DemandList           []DemandItem `json:"demand_list"`
 	AllDemandConfirm     bool         `json:"all_demand_confirm"`

@@ -49,8 +49,6 @@ func (t *BlockChainRealEstate) Init(stub shim.ChaincodeStubInterface) pb.Respons
 func (t *BlockChainRealEstate) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	funcName, args := stub.GetFunctionAndParameters()
 	switch funcName {
-	case "getDemand":
-		return api.Hello(stub, args)
 	case "hello":
 		return api.Hello(stub, args)
 	case "queryAccountList":

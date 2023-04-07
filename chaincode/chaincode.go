@@ -267,6 +267,30 @@ func (c *MyChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return api.PostProposal(stub, args)
 	case "deleteProposals":
 		return api.DeleteProposal(stub, args)
+	case "hello":
+		return api.Hello(stub, args)
+	case "createRealEstate":
+		return api.CreateRealEstate(stub, args)
+	case "queryRealEstateList":
+		return api.QueryRealEstateList(stub, args)
+	case "createSelling":
+		return api.CreateSelling(stub, args)
+	case "createSellingByBuy":
+		return api.CreateSellingByBuy(stub, args)
+	case "querySellingList":
+		return api.QuerySellingList(stub, args)
+	case "querySellingListByBuyer":
+		return api.QuerySellingListByBuyer(stub, args)
+	case "updateSelling":
+		return api.UpdateSelling(stub, args)
+	case "createDonating":
+		return api.CreateDonating(stub, args)
+	case "queryDonatingList":
+		return api.QueryDonatingList(stub, args)
+	case "queryDonatingListByGrantee":
+		return api.QueryDonatingListByGrantee(stub, args)
+	case "updateDonating":
+		return api.UpdateDonating(stub, args)
 	default:
 		return shim.Error(fmt.Sprintf("没有该方法: %s", funcName))
 	}

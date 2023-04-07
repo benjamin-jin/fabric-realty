@@ -76,7 +76,7 @@ func PostProposal(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
 func DeleteProposal(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) < 1 {
-		return shim.Error("参数数量错误，需要2个参数")
+		return shim.Error("参数数量错误，需要1个参数")
 	}
 	proposalID := args[0]
 	oldProposal, err := stub.GetState(proposalID)
