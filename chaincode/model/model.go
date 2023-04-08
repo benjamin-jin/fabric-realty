@@ -1,6 +1,14 @@
 package model
 
+type TestData struct {
+	Key        string `json:"key"`
+	ObjectType string `json:"docType"`
+	UserName   string `json:"user_name"`
+	Balance    int    `json:"account"`
+}
+
 type Storage struct {
+	Key             string  `json:"key"`
 	ObjectType      string  `json:"docType"`
 	UserID          string  `json:"user_id"`
 	GoodCode        string  `json:"good_code"`
@@ -18,6 +26,7 @@ type Storage struct {
 }
 
 type Demand struct {
+	Key             string  `json:"key"`
 	ObjectType      string  `json:"docType"`
 	UserID          string  `json:"user_id"`
 	GoodCode        string  `json:"good_code"`
@@ -35,6 +44,7 @@ type Demand struct {
 }
 
 type Transport struct {
+	Key               string  `json:"key"`
 	ObjectType        string  `json:"docType"`
 	OrgID             string  `json:"org_id"`
 	OrgName           string  `json:"org_name"`
@@ -52,6 +62,7 @@ type Transport struct {
 }
 
 type Proposal struct {
+	Key               string        `json:"key"`
 	ObjectType        string        `json:"docType"`
 	AdminUserID       string        `json:"admin_user_id"`
 	AdminUserName     string        `json:"admin_user_name"`

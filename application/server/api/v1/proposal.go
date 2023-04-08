@@ -1557,6 +1557,7 @@ func CreateProposal(c *gin.Context) {
 	}
 
 	proposal := model.Proposal{
+		Key:              proposalID,
 		ObjectType:       "proposal",
 		AdminUserID:      "100001000001",
 		AdminUserName:    "系统管理员01",

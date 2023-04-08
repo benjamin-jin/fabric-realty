@@ -1,1 +1,1 @@
-{"index":{"fields":["docType","start_location_code", "end_location_code", "transport_status"]},"ddoc":"indexTransport1Doc", "name":"indexTransport1","type":"json"}
+{"index":{"fields":["docType","start_location_code", "end_location_code"]},"ddoc":"indexTransport1Doc", "name":"indexTransport1","type":"json"}

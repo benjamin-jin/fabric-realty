@@ -17,6 +17,46 @@ type MyChaincode struct {
 func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	// 链码初始化
 	fmt.Println("链码初始化")
+	//初始化测试数据
+	var testIds = [20]string{
+		"test000001",
+		"test000002",
+		"test000003",
+		"test000004",
+		"test000005",
+		"test000006",
+		"test000007",
+		"test000008",
+		"test000009",
+		"test000010",
+		"test000011",
+		"test000012",
+		"test000013",
+		"test000014",
+		"test000015",
+		"test000016",
+		"test000017",
+		"test000018",
+		"test000019",
+		"test000020",
+	}
+
+	for _, v := range testIds {
+		testData := model.TestData{
+			Key:        v,
+			ObjectType: "test",
+			UserName:   v,
+			Balance:    0,
+		}
+		testDataString, err := json.Marshal(testData)
+		if err != nil {
+			return shim.Error(fmt.Sprintf("测试数据初始化-序列化json数据失败出错: %s", err))
+		}
+		if err := stub.PutState(v, testDataString); err != nil {
+			return shim.Error("测试数据初始化失败")
+		}
+	}
+
 	//初始化默认数据
 	var accountIds = [6]string{
 		"5feceb66ffc8",
@@ -117,6 +157,7 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		1.7, 1.6, 1.8,
 	}
 	for i, _ := range transports {
+		transports[i].Key = transportID[i]
 		transports[i].ObjectType = "transport"
 		transports[i].OrgID = "400001"
 		transports[i].OrgName = "物流企业01"
@@ -169,6 +210,7 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	storageLocationNames := [4]string{"S1", "S2", "S3", "S4"}
 	storages := [8]model.Storage{}
 	for i := range storageIDs {
+		storages[i].Key = storageIDs[i]
 		storages[i].ObjectType = "storage"
 		storages[i].StorageStatus = 0
 		storages[i].OrgID = "200001"
@@ -197,12 +239,12 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	// 初始化需求
 
 	demandIDs := [6]string{
-		"s30000110000169222664709120",
-		"s30000110000169201185536150",
-		"s30000110000269222664709120",
-		"s30000110000269201185536150",
-		"s30000110000369222664709120",
-		"s30000110000369201185536150",
+		"d30000110000169222664709120",
+		"d30000110000169201185536150",
+		"d30000110000269222664709120",
+		"d30000110000269201185536150",
+		"d30000110000369222664709120",
+		"d30000110000369201185536150",
 	}
 	demandCounts := [6]int{
 		420, 1260,
@@ -215,6 +257,7 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	demandLocationNames := [3]string{"D1", "D2", "D3"}
 	demands := [8]model.Demand{}
 	for i := range demandIDs {
+		demands[i].Key = demandIDs[i]
 		demands[i].ObjectType = "demand"
 		demands[i].DemandStatus = 0
 		demands[i].OrgID = "300001"
@@ -245,6 +288,14 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 func (c *MyChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	funcName, args := stub.GetFunctionAndParameters()
 	switch funcName {
+	case "testBigEvent":
+		return api.TestBigEvent(stub)
+	case "testAddOne":
+		return api.TestAddOne(stub, args)
+	case "testAddOneCache":
+		return api.TestAddOneCache(stub, args)
+	case "testWriteBack":
+		return api.TestWriteBack(stub)
 	case "queryAccountList":
 		return api.QueryAccountList(stub, args)
 	case "getStorageList":

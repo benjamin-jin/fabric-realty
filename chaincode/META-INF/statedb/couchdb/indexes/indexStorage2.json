@@ -1,1 +1,1 @@
-{"index":{"fields":["docType","good_code", "storage_status"]},"ddoc":"indexStorage2Doc", "name":"indexStorage2","type":"json"}
+{"index":{"fields":["docType","good_code"]},"ddoc":"indexStorage2Doc", "name":"indexStorage2","type":"json"}
