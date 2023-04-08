@@ -4,7 +4,7 @@ type TestData struct {
 	Key        string `json:"key"`
 	ObjectType string `json:"docType"`
 	UserName   string `json:"user_name"`
-	Balance    int    `json:"account"`
+	Balance    int    `json:"balance"`
 }
 
 type Storage struct {
