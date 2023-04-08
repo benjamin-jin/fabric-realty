@@ -99,7 +99,7 @@ func TestAddOneCache(stub shim.ChaincodeStubInterface, args []string) pb.Respons
 	testID := args[0]
 	key := "cache" + testID
 	testData := model.TestData{}
-	old, err := stub.GetState(testID)
+	old, err := stub.GetState(key)
 	if err != nil {
 		return shim.Error("获取测试数据失败: " + err.Error())
 	} else if old == nil {
@@ -162,6 +162,7 @@ func TestWriteBack(stub shim.ChaincodeStubInterface) pb.Response {
 		if err != nil {
 			return shim.Error("测试数据重写失败: " + testDataList[i].Key)
 		}
+		err = stub.DelState("cache" + testDataList[i].Key)
 	}
 	return shim.Success(nil)
 }

@@ -14,7 +14,7 @@ package model
 
 //docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"testBigEvent\"]}'"
 
-//docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051  CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty --peerAddresses peer0.taobao.com:7051 peer0.jd.com:7051 -c '{\"Args\":[\"testAddOne\", \"test000001\"]}'"
+//docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051  CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty --peerAddresses peer0.taobao.com:7051 -c '{\"Args\":[\"testAddOne\", \"test000001\"]}'"
 
 //docker exec cli bash -c "CORE_PEER_ADDRESS=peer0.taobao.com:7051 CORE_PEER_LOCALMSPID=TaobaoMSP CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/peer/taobao.com/users/Admin@taobao.com/msp peer chaincode invoke -C appchannel -n fabric-realty -c '{\"Args\":[\"testAddOneCache\", \"test000001\"]}'"
 
