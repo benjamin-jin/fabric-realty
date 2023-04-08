@@ -74,7 +74,7 @@ func TestAddOne(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	} else if old == nil {
 		return shim.Error("测试数据不存在: " + testID)
 	}
-	testData := model.TestData{}
+	var testData model.TestData
 	err = json.Unmarshal(old, &testData)
 	if err != nil {
 		return shim.Error("测试数据反序列化失败: " + testID)
@@ -89,7 +89,7 @@ func TestAddOne(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if err != nil {
 		return shim.Error("测试数据更新失败： " + err.Error())
 	}
-	return shim.Success(nil)
+	return shim.Success(testDataString)
 }
 
 func TestAddOneCache(stub shim.ChaincodeStubInterface, args []string) pb.Response {
