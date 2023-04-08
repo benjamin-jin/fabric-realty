@@ -89,7 +89,7 @@ func TestAddOne(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if err != nil {
 		return shim.Error("测试数据更新失败： " + err.Error())
 	}
-	return shim.Success(testDataString)
+	return shim.Success(nil)
 }
 
 func TestAddOneCache(stub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -131,7 +131,7 @@ func TestAddOneCache(stub shim.ChaincodeStubInterface, args []string) pb.Respons
 
 func TestWriteBack(stub shim.ChaincodeStubInterface) pb.Response {
 	var testDataList []model.TestData
-	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"cachetest\"}")
+	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"cachetest\"}}")
 	queryResults, err := utils.GetQueryResultForQueryString(stub, queryString)
 	if err != nil {
 		return shim.Error("获取测试数据缓存列表失败: " + err.Error())
