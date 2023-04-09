@@ -9,7 +9,7 @@ import (
 // 配置信息
 var (
 	sdk           *fabsdk.FabricSDK                              // Fabric SDK
-	configPath    = "config.yaml"                                // 配置文件路径
+	configPath    = "config-local-dev.yaml"                      // 配置文件路径
 	channelName   = "appchannel"                                 // 通道名称
 	user          = "Admin"                                      // 用户
 	chainCodeName = "fabric-realty"                              // 链码名称
