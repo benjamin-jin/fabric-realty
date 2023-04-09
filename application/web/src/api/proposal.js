@@ -20,6 +20,20 @@ export function DeleteProposal(data) {
   return request({
     url: '/deleteProposal',
     method: 'post',
-
+    data
+  })
+}
+export function GetProposal(data) {
+  return request({
+    url: '/getProposal',
+    method: 'post',
+    data
+  })
+}
+export function GetProposalList(data) {
+  return request({
+    url: '/getProposalList',
+    method: 'post',
+    data
   })
 }

@@ -17,12 +17,12 @@
           <el-dropdown-item>
             用户名: {{ userName }}
           </el-dropdown-item>
-          <el-dropdown-item>
+          <!-- <el-dropdown-item>
             余额: ￥{{ balance }} 元
-          </el-dropdown-item>
-          <a target="_blank" href="https://github.com/togettoyou/fabric-realty">
+          </el-dropdown-item> -->
+          <!-- <a target="_blank" href="https://github.com/togettoyou/fabric-realty">
             <el-dropdown-item>项目地址</el-dropdown-item>
-          </a>
+          </a> -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">切换账户</span>
           </el-dropdown-item>

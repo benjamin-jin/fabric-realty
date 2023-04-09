@@ -51,7 +51,7 @@ export const constantRoutes = [{
     name: 'Realestate',
     component: () => import('@/views/realestate/list/index'),
     meta: {
-      title: '房产信息',
+      title: '个人主页',
       icon: 'realestate'
     }
   }]
@@ -70,7 +70,7 @@ export const asyncRoutes = [
     name: 'Selling',
     alwaysShow: true,
     meta: {
-      title: '销售',
+      title: '系统管理',
       icon: 'selling'
     },
     children: [{
@@ -110,7 +110,7 @@ export const asyncRoutes = [
     name: 'Donating',
     alwaysShow: true,
     meta: {
-      title: '捐赠',
+      title: '数据管理',
       icon: 'donating'
     },
     children: [{
@@ -144,20 +144,63 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/addRealestate',
+    path: '/genProposal',
+    name: 'GenProposal',
     component: Layout,
     meta: {
+      title: '方案管理',
+      icon: 'addRealestate',
       roles: ['admin']
     },
     children: [{
-      path: '/addRealestate',
-      name: 'AddRealestate',
-      component: () => import('@/views/realestate/add/index'),
+      // path: '/addRealestate',
+      // name: 'AddRealestate',
+      // component: () => import('@/views/realestate/add/index'),
+      path: '/genProposalDemand',
+      name: 'GenProposalDemand',
+      component: () => import('@/views/proposal/demand'),
       meta: {
-        title: '新增房产',
-        icon: 'addRealestate'
+        title: '需求列表',
+        // icon: 'addRealestate'
       }
-    }]
+    },
+    {
+      path: '/genProposalStorage',
+      name: 'GenProposalStorage',
+      component: () => import('@/views/proposal/storage'),
+      meta: {
+        title: '仓储列表',
+        // icon: 'addRealestate'
+      }
+    },
+    {
+      path: '/genProposalTransport',
+      name: 'GenProposalTransport',
+      component: () => import('@/views/proposal/transport'),
+      meta: {
+        title: '运力列表',
+        // icon: 'addRealestate'
+      }
+    },
+    {
+      path: '/genProposalPost',
+      name: 'GenProposalPost',
+      component: () => import('@/views/proposal/post'),
+      meta: {
+        title: '生成方案',
+        // icon: 'addRealestate'
+      }
+    },
+    {
+      path: '/genProposalList',
+      name: 'GenProposalList',
+      component: () => import('@/views/proposal/list'),
+      meta: {
+        title: '方案列表',
+        // icon: 'addRealestate'
+      }
+    },
+    ]
   },
 
   // 404 page must be placed at the end !!!

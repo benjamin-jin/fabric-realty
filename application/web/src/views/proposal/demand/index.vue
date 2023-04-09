@@ -11,46 +11,46 @@
       width="55">
     </el-table-column>
     <el-table-column
-      prop="demandID"
+      prop="key"
       label="需求ID"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="userID"
-      label="用户ID"
+      prop="user_id"
+      label="需求用户ID"
       width="120">
       <!-- <template slot-scope="scope">{{ scope.row.date }}</template> -->
     </el-table-column>
     <el-table-column
-      prop="userName"
-      label="用户名称"
+      prop="user_name"
+      label="需求用户名称"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="locationCode"
+      prop="location_code"
       label="需求地址编码"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="locationName"
+      prop="location_name"
       label="需求地址名称"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="goodCode"
+      prop="good_code"
       label="物资编码"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="goodName"
+      prop="good_name"
       label="物资名称"
       width="120">
     </el-table-column>
-    <el-table-column
-      prop="goodType"
+    <!-- <el-table-column
+      prop="good_type"
       label="物资品类"
       width="120">
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column
       prop="count"
       label="需求数量(箱)"
@@ -71,24 +71,39 @@
   </el-table>
   <div style="margin-top: 20px">
     <el-button @click="toggleSelection()">取消选择</el-button>
-    <el-button @click="">获取仓储信息</el-button>
+    <el-button @click="toStorage()">获取仓储信息</el-button>
   </div>
-  <el-pagination
+  <!-- <el-pagination
   background
   layout="prev, pager, next"
   :total="1000">
-  </el-pagination>
+  </el-pagination> -->
   </div>
 </template>
 
 <script>
+  import { getDemandList } from '@/api/demand'
+
   export default {
-    name: 'GenProposal',
+    name: 'GenProposalDemand',
     data() {
       return {
         tableData: [],
         multipleSelection: []
       }
+    },
+    created() {
+        getDemandList({
+          pageSize: 10,
+          bookmark: ""
+        }).then( response => {
+          if (response!==null) {
+            // console.log(response)
+            this.tableData = response.list
+            // console.log(this.tableData)
+          }
+        }
+        ).catch(err =>{console.log(error)})
     },
 
     methods: {
@@ -103,6 +118,9 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
+      },
+      toStorage() {
+        this.$router.replace('/genProposalStorage')
       }
     }
   }

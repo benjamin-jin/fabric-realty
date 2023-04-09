@@ -67,8 +67,8 @@
       width="120">
     </el-table-column>
     <el-table-column
-      prop="sub_proposal_cost(元)"
-      label="子方案总费用"
+      prop="sub_proposal_cost"
+      label="子方案总费用(元)"
       width="120">
     </el-table-column>
     <!-- <el-table-column
@@ -180,9 +180,11 @@
       toProposal() {
         PostProposal({
           proposal_id: this.proposalID,
-          sub_proposal
-        })
-        this.$router.replace('/genProposalList')
+          sub_proposal: JSON.stringify(this.tableData)
+        }).then(res => {
+          this.$router.replace('/genProposalList')
+        }
+        ).catch(err => consol.log(err))
       },
       // getRowKeys(row) {
       //   return row.id

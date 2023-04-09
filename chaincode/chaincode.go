@@ -59,14 +59,14 @@ func (c *MyChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 	//初始化默认数据
 	var accountIds = [6]string{
-		"5feceb66ffc8",
-		"6b86b273ff34",
-		"d4735e3a265e",
-		"4e07408562be",
-		"4b227777d4dd",
-		"ef2d127de37b",
+		"100001000001",
+		"100001100001",
+		"100001100002",
+		"100001100003",
+		"100001100004",
+		"100001100005",
 	}
-	var userNames = [6]string{"管理员", "①号业主", "②号业主", "③号业主", "④号业主", "⑤号业主"}
+	var userNames = [6]string{"系统管理员", "业务人员01", "业务人员02", "业务人员03", "业务人员04", "业务人员05"}
 	var balances = [6]float64{0, 5000000, 5000000, 5000000, 5000000, 5000000}
 	//初始化账号数据
 	for i, val := range accountIds {
